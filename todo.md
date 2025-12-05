@@ -5,7 +5,9 @@
 [✅] implement tailwind
 [✅] navbar extracting
 [✅] footer added
-[] change to posgres
+[✅] change to posgres
+[] create table drinks
+[] create table categories
 
 what i learn: 
 - pake href={function()} -> biar bisa diupdated di masa depan
