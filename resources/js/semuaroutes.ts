@@ -1,0 +1,16 @@
+export function welcome() {
+    return '/'
+}
+export function drinks() {
+    return '/drinks'
+}
+
+export function about() {
+    return '/about'
+}
+export function findus() {
+    return '/findus'
+}
+export function contactus() {
+    return '/contactus'
+}
