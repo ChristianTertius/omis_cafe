@@ -33,7 +33,18 @@ class DrinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'img_url' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'ingredients' => 'required|array',
+            'category_id' => 'required|numeric',
+        ]);
+
+        Drink::create($validated);
+
+        return redirect()->route('drinks.create');
     }
 
     /**
