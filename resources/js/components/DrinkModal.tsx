@@ -23,7 +23,7 @@ interface Props {
     categories: Category[];
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    drink?: Drink | null; // <— NULL = create, ada = edit
+    drink?: Drink | null;
 }
 
 export default function DrinkModal({
@@ -37,28 +37,28 @@ export default function DrinkModal({
     const [ingredients, setIngredients] = useState<string[]>(['']);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
+    // FIXED: Remove _method from initial data
     const { data, setData, post, put, processing, errors, reset } = useForm({
-        category_id: drink?.category_id?.toString() ?? '',
-        name: drink?.name ?? '',
-        ingredients: drink?.ingredients ?? ([] as string[]),
-        price: drink ? drink.price.toString() : '',
-        description: drink?.description ?? '',
+        category_id: '',
+        name: '',
+        ingredients: [] as string[],
+        price: '',
+        description: '',
         image: null as File | null,
     });
 
-    // Load ingredients on edit
+    // Load data on edit or reset on create
     useEffect(() => {
         if (drink) {
             // EDIT MODE
-            setData((prev) => ({
-                ...prev,
+            setData({
                 category_id: drink.category_id.toString(),
                 name: drink.name,
                 ingredients: drink.ingredients,
                 price: drink.price.toString(),
                 description: drink.description,
                 image: null,
-            }));
+            });
 
             setIngredients(drink.ingredients);
             setImagePreview(drink.img_url ? `/storage/${drink.img_url}` : null);
@@ -67,15 +67,6 @@ export default function DrinkModal({
             reset();
             setIngredients(['']);
             setImagePreview(null);
-
-            setData({
-                category_id: '',
-                name: '',
-                ingredients: [],
-                price: '',
-                description: '',
-                image: null,
-            });
         }
     }, [drink, open]);
 
@@ -119,12 +110,33 @@ export default function DrinkModal({
         e.preventDefault();
 
         if (isEdit) {
-            put(`/drinks/${drink!.id}`, {
+            // Use POST with _method=PUT for file uploads
+            const formData = new FormData();
+            formData.append('_method', 'PUT');
+            formData.append('category_id', data.category_id);
+            formData.append('name', data.name);
+            formData.append('price', data.price);
+            formData.append('description', data.description);
+
+            // Add ingredients as array
+            data.ingredients.forEach((ingredient, index) => {
+                formData.append(`ingredients[${index}]`, ingredient);
+            });
+
+            // Add image only if new file selected
+            if (data.image) {
+                formData.append('image', data.image);
+            }
+
+            post(`/drinks/${drink!.id}`, {
+                data: formData,
                 forceFormData: true,
                 onSuccess: handleClose,
+                preserveScroll: true,
             });
         } else {
             post('/drinks', {
+                forceFormData: true,
                 onSuccess: handleClose,
             });
         }
@@ -146,7 +158,7 @@ export default function DrinkModal({
                         <label className="block text-sm font-medium mb-2">Category *</label>
 
                         <Select
-                            value={data.category_id.toString()}
+                            value={data.category_id}
                             onValueChange={(value) => setData('category_id', value)}
                         >
                             <SelectTrigger className="w-full">

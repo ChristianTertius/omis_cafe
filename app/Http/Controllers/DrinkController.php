@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Drink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class DrinkController extends Controller
@@ -86,24 +87,33 @@ class DrinkController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'ingredients' => 'nullable|array',
-            'ingredients.*' => 'string',
-            'price' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
+        // Update data
+        $drink->category_id = $validated['category_id'];
+        $drink->name = $validated['name'];
+        $drink->ingredients = $validated['ingredients'] ?? [];
+        $drink->price = $validated['price'];
+        $drink->description = $validated['description'];
+
+        // Handle image upload if new image provided
         if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($drink->img_url) {
+                Storage::delete('public/' . $drink->img_url);
+            }
+
+            // Store new image
             $path = $request->file('image')->store('drinks', 'public');
-            $validated['img_url'] = $path;
+            $drink->img_url = $path;
         }
-        unset($validated['image']);
 
-        $drink->update($validated);
+        $drink->save();
 
-        $drink->update($validated);
-
-        return redirect()->route('drinks.create')
-            ->with('success', 'Drink updated successfully!');
+        return redirect()->back()->with('success', 'Drink updated successfully');
     }
 
     /**

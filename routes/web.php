@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('drinks');
 });
 
+Route::post('/drinks/{drink}', [DrinkController::class, 'update']);
 Route::resource('drinks', DrinkController::class);
 
 Route::get('/about', function () {

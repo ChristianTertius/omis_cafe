@@ -19,11 +19,14 @@
 [✅] fix this first
     [✅] liat list drink
     [✅] buat drink with button trigger
+
+[✅] drinks features:
+    [✅] index
+    [✅] create
+    [✅] update
+    [✅] delete
+[] belajar yang sudah di bikin
 [] redesign ui
-    [] drinks:
-        [✅] index -> buat user liat
-        [✅] create
-        [] update
     [] home page
     [] about
     [] contact
