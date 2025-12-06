@@ -14,3 +14,6 @@ export function findus() {
 export function contactus() {
     return '/contactus'
 }
+export function create_drinks() {
+    return '/drinks/create'
+}

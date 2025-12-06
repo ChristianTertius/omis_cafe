@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Drink;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DrinkController extends Controller
 {
@@ -12,7 +13,9 @@ class DrinkController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('drinks/index', [
+            'drinks' => Drink::with('category')->get()
+        ]);
     }
 
     /**
@@ -20,7 +23,9 @@ class DrinkController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('drinks/create', [
+            'drinks' => Drink::with('category')->get()
+        ]);
     }
 
     /**

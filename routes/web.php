@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DrinkController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -16,11 +17,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::get('/drinks', function () {
-    return Inertia::render('drinks', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/drinks/create', function () {
+        return Inertia::render('drinks.create');
+    })->name('drinks');
 });
+
+Route::resource('drinks', DrinkController::class);
 
 Route::get('/about', function () {
     return Inertia::render('about', [

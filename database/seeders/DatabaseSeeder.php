@@ -36,7 +36,41 @@ class DatabaseSeeder extends Seeder
                 'category_id' => $coffee->id,
                 'ingredients' => ['espresso', 'milk', 'foam'],
                 'description' => 'Classic cappuccino',
-                'img_url' => 'https://example.com/cappuccino.jpg',
+                'price' => 30000,
+                'img_url' => 'https://noir.web.id/wp-content/uploads/2022/04/jual-cappucino-terdekat.jpg',
+            ]
+        );
+
+        Drink::firstOrCreate(
+            ['name' => 'Americano'],
+            [
+                'category_id' => $coffee->id,
+                'ingredients' => ['espresso', 'water'],
+                'description' => 'Classic Americano',
+                'price' => 22000,
+                'img_url' => 'https://mocktail.net/wp-content/uploads/2022/03/homemade-Iced-Americano-recipe_1ig.jpg',
+            ]
+        );
+
+        Drink::firstOrCreate(
+            ['name' => 'Cafe Latte'],
+            [
+                'category_id' => $coffee->id,
+                'ingredients' => ['espresso', 'steamed milk'],
+                'description' => 'Cafe Latte',
+                'price' => 23000,
+                'img_url' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR8Q_RrELDLpBSuhHF9CEAWgSBo9mRQtSy-g&s',
+            ]
+        );
+
+        Drink::firstOrCreate(
+            ['name' => 'Vanila Latte'],
+            [
+                'category_id' => $coffee->id,
+                'ingredients' => ['espresso', 'steamed milk', 'vanila'],
+                'description' => 'Vanila Latte',
+                'price' => 25000,
+                'img_url' => 'https://carmyy.com/wp-content/uploads/2022/12/iced-coffee.jpg',
             ]
         );
 
@@ -46,7 +80,8 @@ class DatabaseSeeder extends Seeder
                 'category_id' => $matcha->id,
                 'ingredients' => ['green tea leaves', 'hot water'],
                 'description' => 'Refreshing green tea',
-                'img_url' => 'https://example.com/greentea.jpg',
+                'price' => 25000,
+                'img_url' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ33qilIUR3yAi0q3fqhcrlh3mO4KHmmAqWg&s',
             ]
         );
     }

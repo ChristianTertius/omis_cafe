@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->json('ingredients')->nullable();
+            $table->integer('price');
             $table->string('description');
             $table->string('img_url');
 

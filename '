@@ -11,20 +11,9 @@
 [✅] create seeder drinks
 [✅] create seeder categories
 [✅] take drink datas
-[✅] update drink table, tambahin price, jagnan lupa
-    [✅] update seeder
-    [✅] update interface
-[✅] perbanyak coffee
-[✅] ganti logo untuk login/register, dan title web
-[✅] create drink page
-[] redesign ui
-    [] home page
-    [] about
-    [] contact
-    [] find
-    [] login ui
-    [] register ui
-    [] dashboard ui
+[] update drink table, tambahin price, jagnan lupa
+    [] update seeder
+    [] update interface
 
 what i learn: 
 - pake href={function()} -> biar bisa diupdated di masa depan
