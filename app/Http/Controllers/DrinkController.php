@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Drink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 
 class DrinkController extends Controller
@@ -24,10 +25,9 @@ class DrinkController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-
         return Inertia::render('drinks/create', [
-            'categories' => $categories
+            'drinks' => Drink::with('category')->get(),
+            'categories' => Category::all()
         ]);
     }
 
@@ -57,7 +57,7 @@ class DrinkController extends Controller
 
         Drink::create($validated);
 
-        return redirect()->route('drinks.index')
+        return redirect()->route('drinks.create')
             ->with('success', 'Drink created successfully!');
     }
 
@@ -90,6 +90,17 @@ class DrinkController extends Controller
      */
     public function destroy(Drink $drink)
     {
-        //
+        // Hapus image dari storage
+        if ($drink->img_url) {
+            $imagePath = storage_path('app/public/' . $drink->img_url);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
+        $drink->delete();
+
+        return redirect()->route('drinks.create')
+            ->with('success', 'Drink deleted successfully!');
     }
 }

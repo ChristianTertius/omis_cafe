@@ -16,9 +16,9 @@
     [✅] update interface
 [✅] perbanyak coffee
 [✅] ganti logo untuk login/register, dan title web
-[] fix this first
-    [] liat list drink
-    [] buat drink
+[✅] fix this first
+    [✅] liat list drink
+    [✅] buat drink with button trigger
 
 [] redesign ui
     [] home page
