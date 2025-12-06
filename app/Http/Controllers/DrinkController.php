@@ -82,7 +82,28 @@ class DrinkController extends Controller
      */
     public function update(Request $request, Drink $drink)
     {
-        //
+        $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'ingredients' => 'nullable|array',
+            'ingredients.*' => 'string',
+            'price' => 'required|integer|min:0',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('drinks', 'public');
+            $validated['img_url'] = $path;
+        }
+        unset($validated['image']);
+
+        $drink->update($validated);
+
+        $drink->update($validated);
+
+        return redirect()->route('drinks.create')
+            ->with('success', 'Drink updated successfully!');
     }
 
     /**

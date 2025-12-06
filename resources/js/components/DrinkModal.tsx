@@ -1,6 +1,6 @@
 import { useForm } from '@inertiajs/react';
-import { FormEventHandler, useState } from 'react';
-import { Category } from '@/types';
+import { FormEventHandler, useEffect, useState } from 'react';
+import { Category, Drink } from '@/types';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -19,24 +19,65 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from './ui/textarea';
 
-interface CreateDrinkModalProps {
+interface Props {
     categories: Category[];
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    drink?: Drink | null; // <— NULL = create, ada = edit
 }
 
-export default function CreateDrinkModal({ categories, open, onOpenChange }: CreateDrinkModalProps) {
+export default function DrinkModal({
+    categories,
+    open,
+    onOpenChange,
+    drink,
+}: Props) {
+    const isEdit = !!drink;
+
     const [ingredients, setIngredients] = useState<string[]>(['']);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-    const { data, setData, post, processing, errors, reset } = useForm({
-        category_id: '',
-        name: '',
-        ingredients: [] as string[],
-        price: '',
-        description: '',
+    const { data, setData, post, put, processing, errors, reset } = useForm({
+        category_id: drink?.category_id?.toString() ?? '',
+        name: drink?.name ?? '',
+        ingredients: drink?.ingredients ?? ([] as string[]),
+        price: drink ? drink.price.toString() : '',
+        description: drink?.description ?? '',
         image: null as File | null,
     });
+
+    // Load ingredients on edit
+    useEffect(() => {
+        if (drink) {
+            // EDIT MODE
+            setData((prev) => ({
+                ...prev,
+                category_id: drink.category_id.toString(),
+                name: drink.name,
+                ingredients: drink.ingredients,
+                price: drink.price.toString(),
+                description: drink.description,
+                image: null,
+            }));
+
+            setIngredients(drink.ingredients);
+            setImagePreview(drink.img_url ? `/storage/${drink.img_url}` : null);
+        } else {
+            // CREATE MODE
+            reset();
+            setIngredients(['']);
+            setImagePreview(null);
+
+            setData({
+                category_id: '',
+                name: '',
+                ingredients: [],
+                price: '',
+                description: '',
+                image: null,
+            });
+        }
+    }, [drink, open]);
 
     const handleAddIngredient = () => {
         setIngredients([...ingredients, '']);
@@ -76,26 +117,34 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/drinks', {
-            onSuccess: () => {
-                handleClose();
-            },
-        });
+
+        if (isEdit) {
+            put(`/drinks/${drink!.id}`, {
+                forceFormData: true,
+                onSuccess: handleClose,
+            });
+        } else {
+            post('/drinks', {
+                onSuccess: handleClose,
+            });
+        }
     };
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-2xl max-h-[100vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Add New Drink</DialogTitle>
+                    <DialogTitle>
+                        {isEdit ? 'Edit Drink' : 'Add New Drink'}
+                    </DialogTitle>
                 </DialogHeader>
 
                 <form onSubmit={submit} className="space-y-4">
+
                     {/* Category */}
                     <div>
-                        <label className="block text-sm font-medium mb-2">
-                            Category *
-                        </label>
+                        <label className="block text-sm font-medium mb-2">Category *</label>
+
                         <Select
                             value={data.category_id.toString()}
                             onValueChange={(value) => setData('category_id', value)}
@@ -111,6 +160,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                                 ))}
                             </SelectContent>
                         </Select>
+
                         {errors.category_id && (
                             <p className="text-red-500 text-sm mt-1">{errors.category_id}</p>
                         )}
@@ -118,9 +168,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
 
                     {/* Name */}
                     <div>
-                        <label className="block text-sm font-medium mb-2">
-                            Name *
-                        </label>
+                        <label className="block text-sm font-medium mb-2">Name *</label>
                         <Input
                             type="text"
                             value={data.name}
@@ -134,9 +182,8 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
 
                     {/* Ingredients */}
                     <div>
-                        <label className="block text-sm font-medium mb-2">
-                            Ingredients
-                        </label>
+                        <label className="block text-sm font-medium mb-2">Ingredients</label>
+
                         <div className="space-y-2">
                             {ingredients.map((ingredient, index) => (
                                 <div key={index} className="flex gap-2">
@@ -159,6 +206,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                                 </div>
                             ))}
                         </div>
+
                         <Button
                             type="button"
                             variant="outline"
@@ -168,6 +216,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                         >
                             + Add Ingredient
                         </Button>
+
                         {errors.ingredients && (
                             <p className="text-red-500 text-sm mt-1">{errors.ingredients}</p>
                         )}
@@ -175,9 +224,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
 
                     {/* Price */}
                     <div>
-                        <label className="block text-sm font-medium mb-2">
-                            Price (Rp) *
-                        </label>
+                        <label className="block text-sm font-medium mb-2">Price (Rp) *</label>
                         <Input
                             type="number"
                             value={data.price}
@@ -192,9 +239,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
 
                     {/* Description */}
                     <div>
-                        <label className="block text-sm font-medium mb-2">
-                            Description *
-                        </label>
+                        <label className="block text-sm font-medium mb-2">Description *</label>
                         <Textarea
                             value={data.description}
                             onChange={(e) => setData('description', e.target.value)}
@@ -206,11 +251,10 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                         )}
                     </div>
 
-                    {/* Image Upload */}
+                    {/* Image */}
                     <div>
-                        <label className="block text-sm font-medium mb-2">
-                            Image *
-                        </label>
+                        <label className="block text-sm font-medium mb-2">Image {isEdit ? '(optional)' : '*'}</label>
+
                         <input
                             type="file"
                             accept="image/*"
@@ -223,6 +267,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                                 hover:file:bg-gray-100
                                 dark:file:bg-gray-900 dark:file:text-gray-300"
                         />
+
                         {imagePreview && (
                             <div className="mt-4">
                                 <img
@@ -232,24 +277,18 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                                 />
                             </div>
                         )}
+
                         {errors.image && (
                             <p className="text-red-500 text-sm mt-1">{errors.image}</p>
                         )}
                     </div>
 
                     <DialogFooter>
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={handleClose}
-                        >
+                        <Button type="button" variant="outline" onClick={handleClose}>
                             Cancel
                         </Button>
-                        <Button
-                            type="submit"
-                            disabled={processing}
-                        >
-                            {processing ? 'Saving...' : 'Save Drink'}
+                        <Button type="submit" disabled={processing}>
+                            {processing ? 'Saving...' : isEdit ? 'Update Drink' : 'Save Drink'}
                         </Button>
                     </DialogFooter>
                 </form>

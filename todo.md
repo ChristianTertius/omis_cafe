@@ -21,8 +21,9 @@
     [✅] buat drink with button trigger
 [] redesign ui
     [] drinks:
-        [] index -> buat user liat
-        [] create
+        [✅] index -> buat user liat
+        [✅] create
+        [] update
     [] home page
     [] about
     [] contact
