@@ -6,6 +6,7 @@ import { dashboard } from '@/routes';
 import { SharedData, type BreadcrumbItem } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import { Pencil, TrashIcon } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Drinks', href: dashboard().url },
@@ -18,12 +19,15 @@ interface Category {
 
 interface Drink {
     id: number;
+    category_id: number;
+    category?: Category;
     name: string;
+    ingredients: string[] | null;
+    price: number;
     description: string;
     img_url: string;
-    price: number;
-    ingredients: string[];
-    category: Category;
+    created_at: string;
+    updated_at: string;
 }
 
 interface Props {
@@ -64,7 +68,7 @@ export default function Create({ drinks, categories }: Props) {
             <Toaster position="top-center" />
 
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className='p-5 w-5xl'>
+                <div className='p-5 w-7xl'>
                     <Button onClick={handleCreate}>
                         Add New Drink
                     </Button>
@@ -76,6 +80,7 @@ export default function Create({ drinks, categories }: Props) {
                                     <th className="px-6 py-3">Name</th>
                                     <th className="px-6 py-3">Category</th>
                                     <th className="px-6 py-3">Ingredients</th>
+                                    <th className="px-6 py-3">Description</th>
                                     <th className="px-6 py-3">Price</th>
                                     <th className="px-6 py-3">Action</th>
                                 </tr>
@@ -86,19 +91,20 @@ export default function Create({ drinks, categories }: Props) {
                                     <tr key={drink.id} className="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
                                         <td className="px-6 py-4 font-medium">{drink.name}</td>
                                         <td className="px-6 py-4">{drink.category?.name}</td>
-                                        <td className="px-6 py-4">{drink.ingredients.join(', ')}</td>
+                                        <td className="px-6 py-4">{drink.ingredients?.join(', ')}</td>
+                                        <td className="px-6 py-4">{drink.description}</td>
                                         <td className="px-6 py-4">{drink.price}</td>
 
-                                        <td className="px-6 py-4 flex gap-2">
-                                            <Button size="sm" onClick={() => handleEdit(drink)}>
-                                                Edit
+                                        <td className="px-6 py-4 flex gap-2 justify-center">
+                                            <Button variant={'outline'} size="sm" onClick={() => handleEdit(drink)}>
+                                                <Pencil />
                                             </Button>
                                             <Button
                                                 size="sm"
                                                 variant="destructive"
                                                 onClick={() => handleDelete(drink)}
                                             >
-                                                Delete
+                                                <TrashIcon />
                                             </Button>
                                         </td>
                                     </tr>

@@ -50,8 +50,6 @@ export interface User {
 export interface Category {
     id: number;
     name: string;
-    created_at: string;
-    updated_at: string;
 }
 
 export interface Drink {
@@ -63,8 +61,6 @@ export interface Drink {
     price: number;
     description: string;
     img_url: string;
-    created_at: string;
-    updated_at: string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
