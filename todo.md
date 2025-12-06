@@ -25,6 +25,8 @@
     [✅] create
     [✅] update
     [✅] delete
+[✅] update navbar
+[] create gallery
 [] belajar yang sudah di bikin
 [] redesign ui
     [] home page
