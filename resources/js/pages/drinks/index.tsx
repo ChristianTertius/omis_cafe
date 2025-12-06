@@ -1,19 +1,5 @@
 import AppLayout from "@/layouts/AppLayout";
-
-interface Category {
-    id: number;
-    name: string;
-}
-
-interface Drink {
-    id: number;
-    name: string;
-    description: string;
-    img_url: string;
-    price: number;
-    ingredients: string[];
-    category: Category;
-}
+import { Drink } from "@/types";
 
 interface Props {
     drinks: Drink[];

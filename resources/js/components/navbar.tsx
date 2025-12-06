@@ -1,7 +1,7 @@
 import { dashboard, login, register } from '@/routes';
 import { Link, router, usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
-import { about, contactus, drinks, findus, welcome } from '@/semuaroutes';
+import { about, contactus, drinks, findus, welcome, gallery } from '@/semuaroutes';
 import { useState, useEffect, useRef } from 'react';
 
 export default function Navbar({ canRegister = true }: { canRegister?: boolean }) {
@@ -31,6 +31,7 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
             <nav className="flex items-center justify-end gap-4">
                 <Link href={drinks()}>Drinks</Link>
                 <Link href={about()}>About</Link>
+                <Link href={gallery()}>Gallery</Link>
                 <Link href={contactus()}>Contact Us</Link>
                 <Link href={findus()}>Find Us</Link>
                 {auth.user ? (

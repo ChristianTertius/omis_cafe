@@ -57,10 +57,18 @@ export interface Drink {
     category_id: number;
     category?: Category;
     name: string;
-    ingredients: string[] | null;
+    ingredients: string[];
     price: number;
     description: string;
     img_url: string;
+}
+
+export interface Gallery {
+    id: number;
+    name: string;
+    img_url: string;
+    description: string;
+    date: string; // Format: 'YYYY-MM-DD'
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

@@ -17,3 +17,7 @@ export function contactus() {
 export function create_drinks() {
     return '/drinks/create'
 }
+
+export function gallery() {
+    return '/galleries'
+}

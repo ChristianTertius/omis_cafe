@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DrinkController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -25,6 +26,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::post('/drinks/{drink}', [DrinkController::class, 'update']);
 Route::resource('drinks', DrinkController::class);
+
+
+Route::resource('galleries', GalleryController::class);
+
 
 Route::get('/about', function () {
     return Inertia::render('about', [

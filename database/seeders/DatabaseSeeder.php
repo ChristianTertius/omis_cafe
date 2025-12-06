@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Drink;
+use App\Models\Gallery;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -82,6 +83,23 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Refreshing green tea',
                 'price' => 25000,
                 'img_url' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ33qilIUR3yAi0q3fqhcrlh3mO4KHmmAqWg&s',
+            ]
+        );
+
+        Gallery::firstOrCreate(
+            ['name' => 'Cafe Gallery'],
+            [
+                'img_url' => 'https://img.freepik.com/foto-premium/secangkir-kopi-latte-panas-di-atas-meja-di-kafe-dengan-kedalaman-bidang-yang-dangkal_258743-129.jpg?semt=ais_se_enriched&w=740&q=80',
+                'description' => 'This is a cafe gallery',
+                'date' => '2022-12-01',
+            ]
+        );
+        Gallery::firstOrCreate(
+            ['name' => 'Casier Cafe'],
+            [
+                'img_url' => 'https://img.freepik.com/free-photo/smiley-business-woman-working-cashier_23-2148366564.jpg?semt=ais_se_enriched&w=740&q=80',
+                'description' => 'our cashier',
+                'date' => '2022-12-08',
             ]
         );
     }
