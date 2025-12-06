@@ -37,11 +37,6 @@ export default function Drinks({ drinks }: Props) {
                             alt={drink.name}
                             className="w-full h-48 object-cover"
                         />
-                        <img
-                            src={drink.img_url}
-                            alt={drink.name}
-                            className="w-full h-40 object-cover rounded-lg mb-3"
-                        />
                         <h2 className="font-semibold text-lg">{drink.name}</h2>
                         <p className="text-sm opacity-70 mb-1">
                             Category: {drink.category?.name}

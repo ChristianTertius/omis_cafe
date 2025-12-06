@@ -19,8 +19,10 @@
 [✅] fix this first
     [✅] liat list drink
     [✅] buat drink with button trigger
-
 [] redesign ui
+    [] drinks:
+        [] index -> buat user liat
+        [] create
     [] home page
     [] about
     [] contact
@@ -28,6 +30,8 @@
     [] login ui
     [] register ui
     [] dashboard ui
+[] continue drinks features:
+    [] update
 
 what i learn: 
 - pake href={function()} -> biar bisa diupdated di masa depan

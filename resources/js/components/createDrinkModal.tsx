@@ -9,6 +9,15 @@ import {
     DialogTitle,
     DialogFooter,
 } from '@/components/ui/dialog';
+import { Input } from './ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from './ui/textarea';
 
 interface CreateDrinkModalProps {
     categories: Category[];
@@ -76,7 +85,7 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-2xl max-h-[100vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Add New Drink</DialogTitle>
                 </DialogHeader>
@@ -87,18 +96,21 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                         <label className="block text-sm font-medium mb-2">
                             Category *
                         </label>
-                        <select
-                            value={data.category_id}
-                            onChange={(e) => setData('category_id', e.target.value)}
-                            className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        <Select
+                            value={data.category_id.toString()}
+                            onValueChange={(value) => setData('category_id', value)}
                         >
-                            <option value="">Select a category</option>
-                            {categories.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select a category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {categories.map((category) => (
+                                    <SelectItem key={category.id} value={category.id.toString()}>
+                                        {category.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                         {errors.category_id && (
                             <p className="text-red-500 text-sm mt-1">{errors.category_id}</p>
                         )}
@@ -109,11 +121,10 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                         <label className="block text-sm font-medium mb-2">
                             Name *
                         </label>
-                        <input
+                        <Input
                             type="text"
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
-                            className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="e.g., Caramel Macchiato"
                         />
                         {errors.name && (
@@ -129,11 +140,10 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                         <div className="space-y-2">
                             {ingredients.map((ingredient, index) => (
                                 <div key={index} className="flex gap-2">
-                                    <input
+                                    <Input
                                         type="text"
                                         value={ingredient}
                                         onChange={(e) => handleIngredientChange(index, e.target.value)}
-                                        className="flex-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         placeholder={`Ingredient ${index + 1}`}
                                     />
                                     {ingredients.length > 1 && (
@@ -168,11 +178,10 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                         <label className="block text-sm font-medium mb-2">
                             Price (Rp) *
                         </label>
-                        <input
+                        <Input
                             type="number"
                             value={data.price}
                             onChange={(e) => setData('price', e.target.value)}
-                            className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="25000"
                             min="0"
                         />
@@ -186,10 +195,9 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                         <label className="block text-sm font-medium mb-2">
                             Description *
                         </label>
-                        <textarea
+                        <Textarea
                             value={data.description}
                             onChange={(e) => setData('description', e.target.value)}
-                            className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             rows={4}
                             placeholder="Describe the drink..."
                         />
@@ -211,9 +219,9 @@ export default function CreateDrinkModal({ categories, open, onOpenChange }: Cre
                                 file:mr-4 file:py-2 file:px-4
                                 file:rounded-md file:border-0
                                 file:text-sm file:font-semibold
-                                file:bg-indigo-50 file:text-indigo-700
-                                hover:file:bg-indigo-100
-                                dark:file:bg-indigo-900 dark:file:text-indigo-300"
+                                file:bg-gray-50 file:text-gray-700
+                                hover:file:bg-gray-100
+                                dark:file:bg-gray-900 dark:file:text-gray-300"
                         />
                         {imagePreview && (
                             <div className="mt-4">
