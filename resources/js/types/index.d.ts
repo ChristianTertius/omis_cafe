@@ -41,3 +41,36 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+export interface Category {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Drink {
+    id: number;
+    category_id: number;
+    category?: Category;
+    name: string;
+    ingredients: string[] | null;
+    price: number;
+    description: string;
+    img_url: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+    auth: {
+        user: {
+            id: number;
+            name: string;
+            email: string;
+        };
+    };
+    flash?: {
+        success?: string;
+        error?: string;
+    };
+};

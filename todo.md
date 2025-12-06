@@ -16,7 +16,10 @@
     [✅] update interface
 [✅] perbanyak coffee
 [✅] ganti logo untuk login/register, dan title web
-[✅] create drink page
+[] fix this first
+    [] liat list drink
+    [] buat drink
+
 [] redesign ui
     [] home page
     [] about

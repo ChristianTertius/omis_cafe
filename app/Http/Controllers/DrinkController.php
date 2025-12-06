@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Drink;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,8 +24,10 @@ class DrinkController extends Controller
      */
     public function create()
     {
+        $categories = Category::all();
+
         return Inertia::render('drinks/create', [
-            'drinks' => Drink::with('category')->get()
+            'categories' => $categories
         ]);
     }
 
@@ -34,17 +37,28 @@ class DrinkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'img_url' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'ingredients' => 'required|array',
-            'category_id' => 'required|numeric',
+            'ingredients' => 'nullable|array',
+            'ingredients.*' => 'string',
+            'price' => 'required|integer|min:0',
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('drinks', 'public');
+            $validated['img_url'] = $path;
+        }
+
+        // Remove 'image' key and keep 'img_url'
+        unset($validated['image']);
 
         Drink::create($validated);
 
-        return redirect()->route('drinks.create');
+        return redirect()->route('drinks.index')
+            ->with('success', 'Drink created successfully!');
     }
 
     /**

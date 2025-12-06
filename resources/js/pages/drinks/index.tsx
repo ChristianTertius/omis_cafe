@@ -26,12 +26,17 @@ export default function Drinks({ drinks }: Props) {
                 <h1 className="text-xl font-semibold">THIS IS OMI'S CAFEE || DRINKS PAGE</h1>
                 <p>Drink List</p>
             </div>
-            <div className="flex gap-3">
+            <div className="grid gap-5 grid-cols-4">
                 {drinks.map((drink) => (
                     <div
                         key={drink.id}
-                        className="rounded-xl border p-4 dark:border-neutral-700"
+                        className="rounded-xl border p-4 dark:border-neutral-700 max-w-2xl"
                     >
+                        <img
+                            src={`/storage/${drink.img_url}`}
+                            alt={drink.name}
+                            className="w-full h-48 object-cover"
+                        />
                         <img
                             src={drink.img_url}
                             alt={drink.name}
