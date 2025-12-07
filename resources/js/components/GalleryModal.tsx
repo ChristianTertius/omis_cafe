@@ -1,5 +1,5 @@
 import { Gallery } from "@/types";
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import { FormEventHandler, useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Input } from "./ui/input";
@@ -62,31 +62,24 @@ export default function GalleryModal({ open, onOpenChange, gallery }: Props) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        if (isEdit) {
-            const formData = new FormData();
+        const formData = {
+            _method: isEdit ? 'PUT' : 'POST',
+            name: data.name,
+            description: data.description,
+            date: data.date,
+            image: data.image,
+        };
 
-            formData.append('_method', 'PUT');
-            formData.append('name', data.name);
-            formData.append('description', data.description);
-            formData.append('date', data.date);
-
-            if (data.image) {
-                formData.append('image', data.image)
-            }
-
-            post(`/galleries/${gallery!.id}`, {
-                data: formData,
+        router.post(
+            isEdit ? `/galleries/${gallery!.id}` : '/galleries',
+            formData,
+            {
                 forceFormData: true,
-                onSuccess: handleClose,
+                onSuccess: () => handleClose(),
                 preserveScroll: true,
-            })
-        } else {
-            post('/galleries', {
-                forceFormData: true,
-                onSuccess: handleClose
-            })
-        }
-    }
+            }
+        );
+    };
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
