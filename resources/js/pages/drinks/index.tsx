@@ -57,7 +57,7 @@ export default function Drinks({ drinks, categories }: Props) {
                         {categories.map((category) => (
                             <label
                                 key={category.id}
-                                className="flex gap-3 items-center text-xl cursor-pointer"
+                                className="flex gap-3 items-center text-md cursor-pointer"
                             >
                                 <Checkbox
                                     className="scale-125"
@@ -100,7 +100,7 @@ export default function Drinks({ drinks, categories }: Props) {
                                         <p className="font-semibold">
                                             Rp {drink.price.toLocaleString('id-ID')}
                                         </p>
-                                        <button className="text-sm py-1 px-8 bg-yellow-700 text-white hover:bg-yellow-800 transition">
+                                        <button className="cursor-pointer text-sm py-1 px-8 bg-yellow-700 text-white hover:bg-yellow-800 transition">
                                             Buy
                                         </button>
                                     </div>
