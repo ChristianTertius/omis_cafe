@@ -33,13 +33,13 @@
     [✅] CRUD gallery
 [] redesign ui
     [] home page
+    [] drinks
     [] about
     [] contact
     [] find
     [] login ui
     [] register ui
     [] dashboard ui
-[] continue drinks features:
     [] update
 
 what i learn: 

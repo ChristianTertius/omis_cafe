@@ -17,7 +17,8 @@ class DrinkController extends Controller
     public function index()
     {
         return Inertia::render('drinks/index', [
-            'drinks' => Drink::with('category')->get()
+            'drinks' => Drink::with('category')->get(),
+            'categories' => Category::all()
         ]);
     }
 

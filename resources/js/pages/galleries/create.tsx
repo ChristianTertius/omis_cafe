@@ -10,7 +10,7 @@ import { Pencil, TrashIcon } from 'lucide-react';
 import GalleryModal from '@/components/GalleryModal';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Gallery', href: dashboard().url },
+    { title: 'Galleries', href: dashboard().url },
 ];
 
 interface Props {
