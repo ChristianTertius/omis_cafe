@@ -32,6 +32,18 @@
     [✅] modal gallery with edit/add gallery logic
     [✅] CRUD gallery
 [✅] navbar
+[] implement tansstack, so we can
+    [] filter
+    [] order
+    [] pagination
+    [] searching
+    [] export
+
+[] edit drink modal fix
+[] add drink modal fix
+[] add image modal fix
+[] edit image modal fix
+
 [] redesign ui
     [] home page
     [] drinks

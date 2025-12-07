@@ -35,7 +35,7 @@ export default function Drinks({ drinks, categories }: Props) {
     }, [drinks, selectedCategories]);
 
     return (
-        <AppLayout title="Drinks">
+        <AppLayout title="Drinks" className="p-8">
             <div className="my-3 text-center">
                 <h1 className="text-xl font-semibold">Our Drinks</h1>
             </div>
