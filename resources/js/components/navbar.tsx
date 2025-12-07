@@ -52,7 +52,7 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
                 }}
                 animate={hidden ? 'hidden' : 'visible'}
                 transition={{ duration: 0.35, ease: 'easeInOut' }}
-                className="sticky top-0 z-50 border-b border-gray-200 bg-white/70 backdrop-blur-md dark:border-[#3E3E3A] dark:bg-[#191400]/80 rounded-md"
+                className="sticky top-0 z-50 border-gray-200 bg-white/70 p-1 backdrop-blur-md dark:border-[#3E3E3A] dark:bg-[#191400]/80 rounded-md"
             >
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 gap-10">
                     <Link href={welcome()}>
