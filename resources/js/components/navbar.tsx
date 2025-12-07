@@ -4,16 +4,19 @@ import { Link, router, usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { about, contactus, drinks, findus, welcome, gallery } from '@/semuaroutes';
 import { useState, useEffect, useRef } from 'react';
+import { ShoppingCart } from 'lucide-react';
+import { CartDrawer } from './CartDrawer';
 
 export default function Navbar({ canRegister = true }: { canRegister?: boolean }) {
-    const { auth } = usePage<SharedData>().props;
+    const { auth } = usePage().props;
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
+    const [cartOpen, setCartOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     // framer motion
     const [hidden, setHidden] = useState(false);
     const { scrollY } = useScroll();
-    const [lastScrollY, setLastScrollY] = useState(0)
+    const [lastScrollY, setLastScrollY] = useState(0);
 
     useMotionValueEvent(scrollY, 'change', (latest) => {
         if (latest > lastScrollY && latest > 50) {
@@ -21,7 +24,6 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
         } else if (latest < lastScrollY) {
             setHidden(false);
         }
-
         setLastScrollY(latest);
     });
 
@@ -42,60 +44,91 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
     };
 
     return (
-        <header className="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl flex items-center justify-between">
+        <>
             <motion.nav
                 variants={{
                     visible: { y: 0 },
-                    hidden: { y: '-100%' }
+                    hidden: { y: '-100%' },
                 }}
                 animate={hidden ? 'hidden' : 'visible'}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md p-5">
-                <div className='flex items-center justify-between gap-4'>
-                    <div className='flex items-center'>
-                        <img className='size-7' src="logo_with_bg.png" alt="logo" />
-                        <Link href={welcome()} className='text-xl'>Omi's Cafe</Link>
-                    </div>
-                    <div className='flex gap-5 items-center'>
-                        <Link href={drinks()}>Drinks</Link>
-                        <Link href={about()}>About</Link>
-                        <Link href={gallery()}>Gallery</Link>
-                        <Link href={contactus()}>Contact Us</Link>
-                        <Link href={findus()}>Find Us</Link>
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                className="sticky top-0 z-50 border-b border-gray-200 bg-white/70 backdrop-blur-md dark:border-[#3E3E3A] dark:bg-[#191400]/80 rounded-md"
+            >
+                <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 gap-10">
+                    <Link href={welcome()}>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                            Omi's Cafe
+                        </h1>
+                    </Link>
+
+                    <div className="flex items-center gap-6">
+                        <Link
+                            href={drinks()}
+                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                        >
+                            Drinks
+                        </Link>
+                        <Link
+                            href={about()}
+                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                        >
+                            About
+                        </Link>
+                        <Link
+                            href={gallery()}
+                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                        >
+                            Gallery
+                        </Link>
+                        <Link
+                            href={contactus()}
+                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                        >
+                            Contact Us
+                        </Link>
+                        <Link
+                            href={findus()}
+                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                        >
+                            Find Us
+                        </Link>
+
+                        {/* Cart Button */}
+                        <button
+                            onClick={() => setCartOpen(true)}
+                            className="relative rounded-sm border border-transparent p-2 transition-all duration-150 hover:border-[#19140035] dark:hover:border-[#3E3E3A]"
+                        >
+                            <ShoppingCart className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                            {/* Cart badge */}
+                            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
+                                0
+                            </span>
+                        </button>
+
                         {auth.user ? (
                             <div className="relative" ref={dropdownRef}>
                                 <button
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                                    className="flex items-center gap-2 rounded-sm border border-transparena transition-all duration-150 px-3 py-1.5 hover:border-[#19140035] dark:hover:border-[#3E3E3A]"
+                                    className="flex items-center gap-2 rounded-sm border border-transparent px-3 py-1.5 transition-all duration-150 hover:border-[#19140035] dark:hover:border-[#3E3E3A]"
                                 >
-                                    <span>👋 {auth.user.name}</span>
-                                    <svg
-                                        className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                    </svg>
+                                    👋 {auth.user.name}
                                 </button>
 
                                 {dropdownOpen && (
-                                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-[#1b1b18] border border-[#19140035] dark:border-[#3E3E3A] z-50">
-                                        <div className="py-1">
-                                            <Link
-                                                href={dashboard()}
-                                                className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#2a2a26]"
-                                                onClick={() => setDropdownOpen(false)}
-                                            >
-                                                Dashboard
-                                            </Link>
-                                            <button
-                                                onClick={handleLogout}
-                                                className="w-full text-left block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#2a2a26] text-red-600 dark:text-red-400"
-                                            >
-                                                Logout
-                                            </button>
-                                        </div>
+                                    <div className="absolute right-0 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg dark:border-[#3E3E3A] dark:bg-[#191400]">
+                                        <Link
+                                            href={dashboard()}
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-[#2A2400]"
+                                            onClick={() => setDropdownOpen(false)}
+                                        >
+                                            Dashboard
+                                        </Link>
+                                        <button
+                                            onClick={handleLogout}
+                                            className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-[#2A2400]"
+                                        >
+                                            Logout
+                                        </button>
                                     </div>
                                 )}
                             </div>
@@ -103,7 +136,7 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
                             <>
                                 <Link
                                     href={login()}
-                                    className="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                                    className="rounded-md px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
                                 >
                                     Log in
                                 </Link>
@@ -112,6 +145,8 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
                     </div>
                 </div>
             </motion.nav>
-        </header>
+
+            <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+        </>
     );
 }

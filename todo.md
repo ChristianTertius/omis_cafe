@@ -31,6 +31,7 @@
 [✅] study with create gallery:
     [✅] modal gallery with edit/add gallery logic
     [✅] CRUD gallery
+[✅] navbar
 [] redesign ui
     [] home page
     [] drinks
