@@ -77,6 +77,7 @@ export default function Create({ drinks, categories }: Props) {
                         <table className="w-full text-sm">
                             <thead className="bg-neutral-secondary-soft border-b border-default">
                                 <tr>
+                                    <th className="px-6 py-3">No</th>
                                     <th className="px-6 py-3">Name</th>
                                     <th className="px-6 py-3">Category</th>
                                     <th className="px-6 py-3">Ingredients</th>
@@ -87,8 +88,9 @@ export default function Create({ drinks, categories }: Props) {
                             </thead>
 
                             <tbody>
-                                {drinks.map((drink) => (
+                                {drinks.map((drink, index) => (
                                     <tr key={drink.id} className="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
+                                        <td className="px-6 py-4">{index + 1}</td>
                                         <td className="px-6 py-4 font-medium">{drink.name}</td>
                                         <td className="px-6 py-4">{drink.category?.name}</td>
                                         <td className="px-6 py-4">{drink.ingredients?.join(', ')}</td>

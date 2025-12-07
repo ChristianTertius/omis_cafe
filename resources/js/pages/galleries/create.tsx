@@ -58,6 +58,8 @@ export default function Create({ galleries }: Props) {
                         <table className="w-full text-sm text-center">
                             <thead className="bg-neutral-secondary-soft border-b border-default">
                                 <tr>
+                                    <th className="px-6 py-3 w-10">No</th>
+                                    <th className="px-6 py-3">Image</th>
                                     <th className="px-6 py-3">Name</th>
                                     <th className="px-6 py-3">Description</th>
                                     <th className="px-6 py-3">Date</th>
@@ -66,23 +68,35 @@ export default function Create({ galleries }: Props) {
                             </thead>
 
                             <tbody>
-                                {galleries.map((gallery) => (
+                                {galleries.map((gallery, index) => (
                                     <tr key={gallery.id} className="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
+                                        <td className="px-6 py-4">{index + 1}</td>
+
+                                        <td className="px-6 py-4 flex justify-center">
+                                            <img
+                                                src={gallery.img_url ? `/storage/${gallery.img_url}` : `/default-img.png`}
+                                                alt={gallery.name}
+                                                className="w-14 h-14 object-cover rounded-lg border"
+                                            />
+                                        </td>
+
                                         <td className="px-6 py-4 font-medium">{gallery.name}</td>
                                         <td className="px-6 py-4">{gallery.description}</td>
                                         <td className="px-6 py-4">{gallery.date}</td>
 
-                                        <td className="px-6 py-4 flex gap-2 justify-center items-center size-full">
-                                            <Button variant={'outline'} size="sm" onClick={() => handleEdit(gallery)}>
-                                                <Pencil />
-                                            </Button>
-                                            <Button
-                                                size="sm"
-                                                variant="destructive"
-                                                onClick={() => handleDelete(gallery)}
-                                            >
-                                                <TrashIcon />
-                                            </Button>
+                                        <td className="px-6 py-4">
+                                            <div className="flex gap-2 justify-center items-center">
+                                                <Button variant={'outline'} size="sm" onClick={() => handleEdit(gallery)}>
+                                                    <Pencil />
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="destructive"
+                                                    onClick={() => handleDelete(gallery)}
+                                                >
+                                                    <TrashIcon />
+                                                </Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}

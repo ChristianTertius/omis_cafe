@@ -27,10 +27,10 @@
     [✅] delete
 [✅] update navbar
 [✅] gallery view x
-[] bug di update, nggak ke ambil datnaya/nggak ke baca
-[] study with create gallery:
-    [] modal gallery with edit/add gallery logic
-    [] CRUD gallery
+[✅] bug di update, nggak ke ambil datnaya/nggak ke baca
+[✅] study with create gallery:
+    [✅] modal gallery with edit/add gallery logic
+    [✅] CRUD gallery
 [] redesign ui
     [] home page
     [] about
