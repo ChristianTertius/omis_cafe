@@ -22,13 +22,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/drinks/create', function () {
         return Inertia::render('drinks.create');
     })->name('drinks');
+
+    Route::post('/drinks/{drink}', [DrinkController::class, 'update']);
+
+    Route::resource('drinks', DrinkController::class)->only('create', 'store', 'update', 'destroy');
 });
 
-Route::post('/drinks/{drink}', [DrinkController::class, 'update']);
-Route::resource('drinks', DrinkController::class);
+Route::resource('drinks', DrinkController::class)->only('index');
 
 
-// Route::post('/galleries/{galleries}', [GalleryController::class, 'update']);
 Route::resource('galleries', GalleryController::class);
 
 
