@@ -21,3 +21,7 @@ export function create_drinks() {
 export function gallery() {
     return '/galleries'
 }
+
+export function create_galleries() {
+    return '/galleries/create'
+}

@@ -26,12 +26,7 @@ interface Props {
     drink?: Drink | null;
 }
 
-export default function DrinkModal({
-    categories,
-    open,
-    onOpenChange,
-    drink,
-}: Props) {
+export default function DrinkModal({ categories, open, onOpenChange, drink, }: Props) {
     const isEdit = !!drink;
 
     const [ingredients, setIngredients] = useState<string[]>(['']);

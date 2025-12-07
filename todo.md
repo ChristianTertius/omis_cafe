@@ -26,8 +26,11 @@
     [✅] update
     [✅] delete
 [✅] update navbar
-[] create gallery
-[] belajar yang sudah di bikin
+[✅] gallery view x
+[] bug di update, nggak ke ambil datnaya/nggak ke baca
+[] study with create gallery:
+    [] modal gallery with edit/add gallery logic
+    [] CRUD gallery
 [] redesign ui
     [] home page
     [] about

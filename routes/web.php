@@ -28,6 +28,7 @@ Route::post('/drinks/{drink}', [DrinkController::class, 'update']);
 Route::resource('drinks', DrinkController::class);
 
 
+Route::post('/galleries/{galleries}', [GalleryController::class, 'update']);
 Route::resource('galleries', GalleryController::class);
 
 
