@@ -41,7 +41,7 @@ class DrinkController extends Controller
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
-            'ingredients' => 'nullable|array',
+            'ingredients' => 'required|array',
             'ingredients.*' => 'string',
             'price' => 'required|integer|min:0',
             'description' => 'required|string',
@@ -87,7 +87,7 @@ class DrinkController extends Controller
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
-            'ingredients' => 'nullable|array',
+            'ingredients' => 'required|array',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',

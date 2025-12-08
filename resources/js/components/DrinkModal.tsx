@@ -18,6 +18,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from './ui/textarea';
+import { X } from 'lucide-react';
 
 interface Props {
     categories: Category[];
@@ -26,13 +27,13 @@ interface Props {
     drink?: Drink | null;
 }
 
-export default function DrinkModal({ categories, open, onOpenChange, drink, }: Props) {
+export default function DrinkModal({ categories, open, onOpenChange, drink }: Props) {
     const isEdit = !!drink;
 
-    const [ingredients, setIngredients] = useState<string[]>(['']);
+    const [ingredients, setIngredients] = useState<string[]>([]);
+    const [currentIngredient, setCurrentIngredient] = useState('');
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-    // FIXED: Remove _method from initial data
     const { data, setData, post, put, processing, errors, reset } = useForm({
         category_id: '',
         name: '',
@@ -60,26 +61,33 @@ export default function DrinkModal({ categories, open, onOpenChange, drink, }: P
         } else {
             // CREATE MODE
             reset();
-            setIngredients(['']);
+            setIngredients([]);
             setImagePreview(null);
         }
+        setCurrentIngredient('');
     }, [drink, open]);
 
     const handleAddIngredient = () => {
-        setIngredients([...ingredients, '']);
+        const trimmed = currentIngredient.trim();
+        if (trimmed && !ingredients.includes(trimmed)) {
+            const newIngredients = [...ingredients, trimmed];
+            setIngredients(newIngredients);
+            setData('ingredients', newIngredients);
+            setCurrentIngredient('');
+        }
     };
 
     const handleRemoveIngredient = (index: number) => {
         const newIngredients = ingredients.filter((_, i) => i !== index);
         setIngredients(newIngredients);
-        setData('ingredients', newIngredients.filter(ing => ing.trim() !== ''));
+        setData('ingredients', newIngredients);
     };
 
-    const handleIngredientChange = (index: number, value: string) => {
-        const newIngredients = [...ingredients];
-        newIngredients[index] = value;
-        setIngredients(newIngredients);
-        setData('ingredients', newIngredients.filter(ing => ing.trim() !== ''));
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleAddIngredient();
+        }
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,8 +104,9 @@ export default function DrinkModal({ categories, open, onOpenChange, drink, }: P
 
     const handleClose = () => {
         reset();
-        setIngredients(['']);
+        setIngredients([]);
         setImagePreview(null);
+        setCurrentIngredient('');
         onOpenChange(false);
     };
 
@@ -105,7 +114,6 @@ export default function DrinkModal({ categories, open, onOpenChange, drink, }: P
         e.preventDefault();
 
         if (isEdit) {
-            // Use POST with _method=PUT for file uploads
             const formData = new FormData();
             formData.append('_method', 'PUT');
             formData.append('category_id', data.category_id);
@@ -113,12 +121,10 @@ export default function DrinkModal({ categories, open, onOpenChange, drink, }: P
             formData.append('price', data.price);
             formData.append('description', data.description);
 
-            // Add ingredients as array
             data.ingredients.forEach((ingredient, index) => {
                 formData.append(`ingredients[${index}]`, ingredient);
             });
 
-            // Add image only if new file selected
             if (data.image) {
                 formData.append('image', data.image);
             }
@@ -139,14 +145,14 @@ export default function DrinkModal({ categories, open, onOpenChange, drink, }: P
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-2xl max-h-[100vh] overflow-y-auto">
+            <DialogContent className="max-w-2xl max-h-[95vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>
                         {isEdit ? 'Edit Drink' : 'Add New Drink'}
                     </DialogTitle>
                 </DialogHeader>
 
-                <form onSubmit={submit} className="space-y-4">
+                <div onSubmit={submit} className="space-y-4">
 
                     {/* Category */}
                     <div>
@@ -187,42 +193,53 @@ export default function DrinkModal({ categories, open, onOpenChange, drink, }: P
                         )}
                     </div>
 
-                    {/* Ingredients */}
+                    {/* Ingredients with Badge */}
                     <div>
-                        <label className="block text-sm font-medium mb-2">Ingredients</label>
+                        <label className="block text-sm font-medium mb-2">Ingredients *</label>
 
-                        <div className="space-y-2">
-                            {ingredients.map((ingredient, index) => (
-                                <div key={index} className="flex gap-2">
-                                    <Input
-                                        type="text"
-                                        value={ingredient}
-                                        onChange={(e) => handleIngredientChange(index, e.target.value)}
-                                        placeholder={`Ingredient ${index + 1}`}
-                                    />
-                                    {ingredients.length > 1 && (
-                                        <Button
-                                            type="button"
-                                            variant="destructive"
-                                            size="sm"
-                                            onClick={() => handleRemoveIngredient(index)}
-                                        >
-                                            Remove
-                                        </Button>
-                                    )}
-                                </div>
-                            ))}
+                        <div className="flex gap-2 mb-3">
+                            <Input
+                                type="text"
+                                value={currentIngredient}
+                                onChange={(e) => setCurrentIngredient(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                placeholder="Type ingredient and press Enter"
+                                className="flex-1"
+                            />
+                            <Button
+                                type="button"
+                                onClick={handleAddIngredient}
+                                size="sm"
+                            >
+                                Add
+                            </Button>
                         </div>
 
-                        <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            onClick={handleAddIngredient}
-                            className="mt-2"
-                        >
-                            + Add Ingredient
-                        </Button>
+                        {errors.name && (
+                            <p className="text-red-500 text-sm mt-1">{errors.ingredients}</p>
+                        )}
+                        {/* Badge Container */}
+                        <div className="flex flex-wrap gap-2 rounded-md">
+                            {ingredients.length === 0 ? (
+                                <span className="text-muted-foreground text-sm">No ingredients added yet</span>
+                            ) : (
+                                ingredients.map((ingredient, index) => (
+                                    <span
+                                        key={index}
+                                        className="inline-flex items-center py-1 px-2 bg-black/5 border text-primary rounded-full text-xs font-medium"
+                                    >
+                                        {ingredient}
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveIngredient(index)}
+                                            className="cursor-pointer ml-1 hover:bg-primary/20 rounded-full p-0.5 transition-colors"
+                                        >
+                                            <X size={10} />
+                                        </button>
+                                    </span>
+                                ))
+                            )}
+                        </div>
 
                         {errors.ingredients && (
                             <p className="text-red-500 text-sm mt-1">{errors.ingredients}</p>
@@ -294,11 +311,11 @@ export default function DrinkModal({ categories, open, onOpenChange, drink, }: P
                         <Button type="button" variant="outline" onClick={handleClose}>
                             Cancel
                         </Button>
-                        <Button type="submit" disabled={processing}>
+                        <Button type="button" onClick={submit} disabled={processing}>
                             {processing ? 'Saving...' : isEdit ? 'Update Drink' : 'Save Drink'}
                         </Button>
                     </DialogFooter>
-                </form>
+                </div>
             </DialogContent>
         </Dialog>
     );

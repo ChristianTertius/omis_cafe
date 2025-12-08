@@ -39,6 +39,8 @@
     [✅] searching
     [✅] export
 
+[] modal update/add di drinks/galleries
+
 [] edit drink modal fix
 [] add drink modal fix
 [] add image modal fix
@@ -57,3 +59,6 @@
 
 what i learn: 
 - pake href={function()} -> biar bisa diupdated di masa depan
+- ada default uinya, pake radix
+- jadi tidak refresh 
+- ada login, register, logout as default
