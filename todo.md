@@ -39,7 +39,8 @@
     [✅] searching
     [✅] export
 
-[] modal update/add di drinks/galleries
+[✅] modal update/add di drinks/galleries
+[] pagination di drinks.index
 
 [] edit drink modal fix
 [] add drink modal fix
