@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DrinkController;
 use App\Http\Controllers\GalleryController;
+use App\Models\Gallery;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -9,6 +10,7 @@ use Laravel\Fortify\Features;
 Route::get('/', function () {
     return Inertia::render('welcome', [
         'canRegister' => Features::enabled(Features::registration()),
+        'galleries' => Gallery::all()
     ]);
 })->name('home');
 

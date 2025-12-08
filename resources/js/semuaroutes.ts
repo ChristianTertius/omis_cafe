@@ -6,20 +6,20 @@ export function drinks() {
 }
 
 export function about() {
-    return '/about'
+    return '/#about'
 }
 export function findus() {
-    return '/findus'
+    return '/#findus'
 }
 export function contactus() {
-    return '/contactus'
+    return '/#contactus'
 }
 export function create_drinks() {
     return '/drinks/create'
 }
 
 export function gallery() {
-    return '/galleries'
+    return '/#gallery'
 }
 
 export function create_galleries() {

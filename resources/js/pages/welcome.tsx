@@ -2,7 +2,7 @@ import AppLayout from "@/layouts/AppLayout";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
 
-export default function Welcome() {
+export default function Welcome({ galleries }) {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -11,6 +11,7 @@ export default function Welcome() {
 
     // Background zoom: scale dari 1 ke 1.3
     const bgScale = useTransform(scrollYProgress, [0, 0.4], [1, 1.3]);
+    const scale = useTransform(scrollYProgress, [0, 1], [1.5, 0.5]);
 
     // Text fade out: opacity dari 1 ke 0
     const textOpacity = useTransform(scrollYProgress, [0.2, 0.5], [1, 0]);
@@ -63,7 +64,36 @@ export default function Welcome() {
                     </div>
                 </div>
 
-                <div className="min-h-screen bg-blue-100"></div>
+                <div className="min-h-screen bg-lime-100 flex items-center justify-center flex-col gap-5" id="about">
+                    <motion.div transition={{ duration: 1, delay: 3, ease: "easeOut" }}
+                        style={{ scale }} className="origin-top-right">
+                        <h1 className="text-[12rem] font-[1000] uppercase">About Us</h1>
+                    </motion.div>
+                    <p className="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus hic cum nesciunt minima saepe fuga nobis accusantium, dolore maxime.</p>
+                </div>
+
+                <motion.div className="min-h-screen bg-amber-100 flex items-center justify-center flex-col gap-5" id="gallery">
+                    {/* muncul dari tengah */}
+                    <h1 className="text-3xl uppercase font-extrabold">Gallery</h1>
+                    <div className="flex gap-5 flex-wrap justify-center">
+                        {galleries.map((gallery) => (
+                            <div className="shadow-sm p-3 space-y-3 border border-black/30 rounded-sm">
+                                <img
+                                    src={gallery.img_url ? `/storage/${gallery.img_url}` : `/default-img.png`}
+                                    alt={gallery.name}
+                                    className="aspect-square size-72 object-cover border"
+                                />
+                                <p className="font-bold">{gallery.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+                <motion.div className="min-h-screen bg-red-100 flex items-center justify-center flex-col gap-5" id="findus">
+                    <h1 className="text-[12rem] uppercase font-extrabold">Find Us</h1>
+                </motion.div>
+                <motion.div className="min-h-screen bg-blue-100 flex items-center justify-center flex-col gap-5" id="contactus">
+                    <h1 className="text-[12rem] uppercase font-extrabold">Contact Us</h1>
+                </motion.div>
             </div>
         </AppLayout >
     );
