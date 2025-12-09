@@ -53,14 +53,15 @@ export default function AboutSection() {
                     >
                         Lorem, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae delectus officiis quas obcaecati facere blanditiis illum pariatur? Perspiciatis, hic voluptates.ipsum dolor sit amet consectetur adipisicing elit. Mollitia at eos sit minus quod libero fuga commodi ad tenetur repudiandae?
                     </motion.p>
-                    <motion.button
+                    <Link
+                        href={'/drinks'}
                         className="bg-[#4d6443] py-2 px-4 text-white"
                         variants={itemVariants}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
                         Buy Now
-                    </motion.button>
+                    </Link>
                 </div>
             </motion.div>
 
