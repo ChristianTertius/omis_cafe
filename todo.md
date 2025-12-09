@@ -51,6 +51,7 @@
     [] gallery: pecah dari tengah ke kiri kanan
 [] redesign ui
     [✅] home page
+    [✅] gallery
     [] implement parallax for move section to about
     [] about
     [] drinks (?)

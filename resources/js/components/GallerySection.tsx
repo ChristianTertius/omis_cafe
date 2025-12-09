@@ -1,71 +1,101 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
 
-export default function GallerySection({ galleries }) {
-    const sectionRef = useRef(null);
+const generatePositions = (count) => {
+    const positions = [];
+    const minDistance = 400;
+    const maxAttempts = 100;
 
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"]
+    for (let i = 0; i < count; i++) {
+        let attempts = 0;
+        let validPosition = false;
+        let newPos;
+
+        while (!validPosition && attempts < maxAttempts) {
+            const x = (Math.random() - 0.5) * 1400;
+            const y = (Math.random() - 0.5) * 800;
+            const rotate = (Math.random() - 0.5) * 40;
+
+            newPos = { x, y, rotate };
+
+            validPosition = positions.every(pos => {
+                const distance = Math.sqrt(
+                    Math.pow(pos.x - newPos.x, 2) +
+                    Math.pow(pos.y - newPos.y, 2)
+                );
+                return distance >= minDistance;
+            });
+
+            attempts++;
+        }
+
+        if (!validPosition) {
+            const angle = (i / count) * Math.PI * 2;
+            const radius = 500 + (i % 3) * 150;
+            newPos = {
+                x: Math.cos(angle) * radius,
+                y: Math.sin(angle) * radius,
+                rotate: (Math.random() - 0.5) * 40
+            };
+        }
+
+        positions.push(newPos);
+    }
+
+    return positions;
+};
+
+export default function GallerySection({ galleries }) {
+    const gallerySectionRef = useRef(null);
+    const { scrollYProgress: galleryProgress } = useScroll({
+        target: gallerySectionRef,
+        offset: ["start start", "end end"]
     });
 
-    // Posisi akhir untuk setiap image (menyebar ke berbagai arah)
-    const positions = [
-        { x: -400, y: -300, rotate: -15 },
-        { x: 400, y: -250, rotate: 12 },
-        { x: -350, y: 100, rotate: 8 },
-        { x: 380, y: 150, rotate: -10 },
-        { x: -300, y: -100, rotate: 18 },
-        { x: 320, y: 50, rotate: -12 },
-        { x: -420, y: 200, rotate: 15 },
-        { x: 450, y: -100, rotate: -8 },
-    ];
+    const positions = generatePositions(galleries.length);
 
     return (
         <div
-            ref={sectionRef}
-            className="h-[200vh] relative bg-amber-100"
+            ref={gallerySectionRef}
+            className="h-[300vh] relative bg-[#8b6341]"
             id="gallery"
         >
             <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-                {/* Title tetap di tengah */}
                 <motion.h1
                     style={{
-                        opacity: useTransform(scrollYProgress, [0.3, 0.5], [1, 0])
+                        opacity: useTransform(galleryProgress, [0, 0.15, 0.2, 0.25], [0, 1, 1, 0])
                     }}
-                    className="text-3xl uppercase font-extrabold absolute z-10"
+                    className="text-3xl uppercase font-extrabold absolute text-white z-10"
                 >
                     Gallery
                 </motion.h1>
 
-                {/* Images yang menyebar */}
                 <div className="relative w-full h-full flex items-center justify-center">
                     {galleries.map((gallery, index) => {
-                        const pos = positions[index % positions.length];
+                        const pos = positions[index];
 
-                        // Transform berdasarkan scroll
                         const x = useTransform(
-                            scrollYProgress,
-                            [0.2, 0.8],
+                            galleryProgress,
+                            [0.2, 0.7],
                             [0, pos.x]
                         );
 
-                        const y = useTransform(
-                            scrollYProgress,
-                            [0.2, 0.8],
+                        const yPos = useTransform(
+                            galleryProgress,
+                            [0.2, 0.7],
                             [0, pos.y]
                         );
 
                         const rotate = useTransform(
-                            scrollYProgress,
-                            [0.2, 0.8],
+                            galleryProgress,
+                            [0.2, 0.7],
                             [0, pos.rotate]
                         );
 
                         const opacity = useTransform(
-                            scrollYProgress,
-                            [0.1, 0.3, 0.8, 0.9],
-                            [0, 1, 1, 0]
+                            galleryProgress,
+                            [0.15, 0.25],
+                            [0, 1]
                         );
 
                         return (
@@ -73,7 +103,7 @@ export default function GallerySection({ galleries }) {
                                 key={gallery.name}
                                 style={{
                                     x,
-                                    y,
+                                    y: yPos,
                                     rotate,
                                     opacity
                                 }}
@@ -85,37 +115,12 @@ export default function GallerySection({ galleries }) {
                                     className="aspect-square size-72 object-cover border"
                                 />
                                 <p className="font-bold">{gallery.name}</p>
+                                <p className="text-sm">{gallery.description}</p>
                             </motion.div>
                         );
                     })}
                 </div>
             </div>
-        </div>
-    );
-}
-
-// Example usage with dummy data
-const dummyGalleries = [
-    { name: "Matcha Latte", img_url: null },
-    { name: "Espresso", img_url: null },
-    { name: "Cappuccino", img_url: null },
-    { name: "Americano", img_url: null },
-    { name: "Latte Art", img_url: null },
-    { name: "Cold Brew", img_url: null },
-];
-
-export function Demo() {
-    return (
-        <div>
-            <section className="h-screen flex items-center justify-center bg-lime-100">
-                <h1 className="text-4xl font-bold">Scroll Down</h1>
-            </section>
-
-            <GallerySection galleries={dummyGalleries} />
-
-            <section className="min-h-screen flex items-center justify-center bg-blue-100">
-                <h1 className="text-4xl font-bold">Section 04</h1>
-            </section>
         </div>
     );
 }
