@@ -5,6 +5,7 @@ import GallerySection from "@/components/GallerySection";
 import ContactUs from "./contactus";
 import ContactUsSection from "@/components/contactus";
 import FindUsSection from "@/components/FindUsSection";
+import AboutSection from "@/components/AboutSection";
 
 export default function Welcome({ galleries }) {
     const containerRef = useRef(null);
@@ -61,23 +62,12 @@ export default function Welcome({ galleries }) {
                         </motion.div>
                     </div>
                 </div>
-
-                {/* section 02 */}
-                <motion.div
-                    style={{ y }}
-                    className="h-[150vh] text-white bg-[#4d6443] flex items-center justify-center flex-col gap-5"
-                    id="about"
-                >
-                    <h1 className="text-[12rem] font-[1000] uppercase text-center">About Us</h1>
-                    <p className="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus hic cum nesciunt minima saepe fuga nobis accusantium, dolore maxime.</p>
-                    <p className="text-xl font-semibold">that's why we are Omi's cafe</p>
-                </motion.div>
             </div>
-
+            <AboutSection />
             <GallerySection galleries={galleries} />
 
-            <ContactUsSection />
             <FindUsSection />
+            {/* <ContactUsSection /> */}
         </AppLayout>
     );
 }

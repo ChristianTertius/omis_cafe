@@ -52,7 +52,7 @@
 [] redesign ui
     [✅] home page
     [✅] gallery
-    [] implement parallax for move section to about
+    [] fix about section
     [] about
     [] drinks (?)
     [] contact

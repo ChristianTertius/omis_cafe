@@ -42,3 +42,6 @@
                 <h1 className="text-[12rem] uppercase font-extrabold">Contact Us</h1>
             </motion.div>
 
+bg - [#4d6443]
+
+// Variants untuk animasi item
