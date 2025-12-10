@@ -46,9 +46,9 @@
 [✅] add drink modal fix
 
 -- TO DO LIST --
-[] cari inspriasi ui, gambaran kasar: 
-    [] about: nyediain apa aja
-    [] gallery: pecah dari tengah ke kiri kanan
+[✅] cari inspriasi ui, gambaran kasar: 
+    [✅] about: nyediain apa aja
+    [✅] gallery: pecah dari tengah ke kiri kanan
 [] redesign ui
     [✅] home page
     [✅] gallery
@@ -56,7 +56,7 @@
     [] about
     [] drinks (?)
     [] contact
-    [] find
+    []✅ find
     [] login ui
     [] register ui
     [] dashboard ui

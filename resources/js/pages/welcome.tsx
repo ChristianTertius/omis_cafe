@@ -4,6 +4,7 @@ import GallerySection from "@/components/GallerySection";
 import FindUsSection from "@/components/FindUsSection";
 import AboutSection from "@/components/AboutSection";
 import { Gallery } from "@/types";
+import ContactUsSection from "@/components/contactus";
 
 interface Props {
     galleries: Gallery[]
@@ -16,7 +17,7 @@ export default function Welcome({ galleries }: Props) {
             <AboutSection />
             <GallerySection galleries={galleries} />
             <FindUsSection />
-            {/* <ContactUsSection /> */}
+            <ContactUsSection />
         </AppLayout>
     );
 }
