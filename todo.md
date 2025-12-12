@@ -52,7 +52,7 @@
 [✅] combine contactus and findus section
 
 <!--TODO: MUST DONE TODAY -->
-[🔥] about section fix (consume 2 session if not solve, give up)
+[✅] about section fix (consume 2 session if not solve, give up)
 [🔥] Gallery fix, text gallery animasi fade in
 [🔥] Gallery fix, text gallery animasi fade in
 [🔥] Animation in find us
