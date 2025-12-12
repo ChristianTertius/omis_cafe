@@ -60,7 +60,8 @@
 [✅] change gallery/contactfindus -> gallery cokelat, find us ijo, selesai
 [✅] create footer
 [✅] entah mengapa implement animasi di contactfindus section
-[] makesure id works for move section, fix about section
+[✅] makesure id works for move section, fix about section
+[✅] Loading animation
 
 [] redesign ui
     [✅] home page
