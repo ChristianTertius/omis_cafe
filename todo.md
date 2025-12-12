@@ -55,7 +55,10 @@
 [✅] about section fix (consume 2 session if not solve, give up)
 [✅] Gallery fix, text gallery animasi fade in
 [✅] Learn Animation in find us
-[] change gallery/contactfindus
+[✅] Learn how to create texture
+[✅] implement texture in gallery
+[] change gallery/contactfindus -> gallery cokelat, find us ijo, kase separator, selesai
+[] makesure id works for move section
 
 [] redesign ui
     [✅] home page
@@ -85,6 +88,7 @@
     [] if checkout -> orders + 1;
     [] crud biasalah
 
+[] favourite feature
 [] buat jadi responsive
 [] darkmode
 

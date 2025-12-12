@@ -76,7 +76,7 @@ export default function AboutSection() {
                 </div>
             </motion.div>
             <motion.div
-                className="bg-pink-500 w-1/2 flex items-center justify-center h-screen bg-[url('/about_coffee.png')] bg-cover p-32"
+                className="w-1/2 flex items-center justify-center h-screen bg-[url('/about_coffee.png')] bg-cover p-32"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}

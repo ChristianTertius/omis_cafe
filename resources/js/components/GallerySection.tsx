@@ -70,7 +70,7 @@ export default function GallerySection({ galleries }) {
     return (
         <div
             ref={gallerySectionRef}
-            className="h-[300vh] relative bg-[#8b6341]"
+            className="h-[200vh] relative bg-[url('/gallerybg.png')] bg-cover"
             id="gallery"
         >
             <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">

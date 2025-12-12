@@ -17,6 +17,7 @@ export default function Welcome({ galleries }: Props) {
             <HeroSection />
             <AboutSection />
             <GallerySection galleries={galleries} />
+            {/* <div className="h-3 bg-gradient-to-r from-transparent via-white/30 to-transparent" /> */}
             {/* <FindUsSection /> */}
             <ContactFindUsSection />
         </AppLayout>

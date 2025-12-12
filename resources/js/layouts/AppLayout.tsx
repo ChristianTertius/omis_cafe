@@ -19,7 +19,7 @@ export default function AppLayout({ title, children, className }: PropsWithChild
                 />
             </Head>
 
-            <div className="flex flex-col items-center bg-[#FDFDFC] text-[#1b1b18] lg:justify-center dark:bg-[#0a0a0a]">
+            <div className="flex relative flex-col items-center bg-[#FDFDFC] text-[#1b1b18] lg:justify-center dark:bg-[#0a0a0a]">
                 <Navbar canRegister={true} />
 
                 <div className={`flex flex-col w-full opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0 pt-10 ${className}`}>
