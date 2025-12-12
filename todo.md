@@ -59,8 +59,8 @@
 [✅] implement texture in gallery
 [✅] change gallery/contactfindus -> gallery cokelat, find us ijo, selesai
 [✅] create footer
-[] entah mengapa implement animasi di contactfindus section
-[] makesure id works for move section
+[✅] entah mengapa implement animasi di contactfindus section
+[] makesure id works for move section, fix about section
 
 [] redesign ui
     [✅] home page

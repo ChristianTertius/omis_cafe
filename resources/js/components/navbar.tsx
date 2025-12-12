@@ -43,6 +43,22 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
         router.post('/logout');
     };
 
+    // Smooth scroll handler untuk About
+    const scrollToAbout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const aboutElement = document.getElementById('about');
+        if (aboutElement) {
+            const elementPosition = aboutElement.getBoundingClientRect().top + window.pageYOffset;
+            // Offset untuk kompensasi navbar dan transform
+            const offsetPosition = elementPosition - 665; // Sesuaikan nilai ini
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
     return (
         <>
             <motion.nav
@@ -68,12 +84,13 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
                         >
                             Drinks
                         </Link>
-                        <Link
-                            href={about()}
-                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+                        <a
+                            href="#about"
+                            onClick={scrollToAbout}
+                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 cursor-pointer"
                         >
                             About
-                        </Link>
+                        </a>
                         <Link
                             href={gallery()}
                             className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
