@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
 const styles = `
@@ -50,7 +51,7 @@ export default function FindUsSection() {
     };
 
     return (
-        <section className="bg-[#3d5a4f] text-white py-16 px-4 md:px-8 relative min-h-screen">
+        <section className="bg-[#3d5a4f] text-white py-16 px-4 md:px-8 relative min-h-screen" id="findus">
             {/* Toast Alert */}
             {showAlert && (
                 <div className="fixed top-8 right-8 z-50 animate-[slideIn_0.3s_ease-out]">
@@ -63,14 +64,24 @@ export default function FindUsSection() {
 
             <div className="max-w-7xl mx-auto">
                 {/* Title */}
-                <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 tracking-tight">
+                <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
+                    viewport={{ once: true }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeInOut' }}
+                    className="text-4xl md:text-5xl font-bold text-center mb-12 tracking-tight">
                     Find Us
-                </h2>
+                </motion.h2>
 
                 {/* Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                     {/* Left Column - Contact Info Cards */}
-                    <div className="flex flex-col gap-6">
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        viewport={{ once: true }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeInOut' }}
+                        className="flex flex-col gap-6">
                         {/* Contact Us Card */}
                         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 md:p-8 hover:bg-white/15 transition-colors duration-300">
                             <h3 className="text-xl md:text-2xl font-semibold mb-6 flex items-center gap-3">
@@ -174,9 +185,14 @@ export default function FindUsSection() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="h-[400px] lg:h-full lg:min-h-[600px] bg-[#2a4038] rounded-xl shadow-2xl overflow-hidden">
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        viewport={{ once: true }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeInOut' }}
+                        className="h-[400px] lg:h-full lg:min-h-[600px] bg-[#2a4038] rounded-xl shadow-2xl overflow-hidden">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666!2d106.8456!3d-6.2088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzEuNyJTIDEwNsKwNTAnNDQuMiJF!5e0!3m2!1sen!2sid!4v1234567890"
                             className="w-full h-full border-0"
@@ -185,7 +201,7 @@ export default function FindUsSection() {
                             referrerPolicy="no-referrer-when-downgrade"
                             title="Omis Cafe Location"
                         />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
 

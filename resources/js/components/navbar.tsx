@@ -81,12 +81,6 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
                             Gallery
                         </Link>
                         <Link
-                            href={contactus()}
-                            className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-                        >
-                            Contact Us
-                        </Link>
-                        <Link
                             href={findus()}
                             className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
                         >

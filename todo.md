@@ -58,7 +58,8 @@
 [✅] Learn how to create texture
 [✅] implement texture in gallery
 [✅] change gallery/contactfindus -> gallery cokelat, find us ijo, selesai
-[] create footer
+[✅] create footer
+[] entah mengapa implement animasi di contactfindus section
 [] makesure id works for move section
 
 [] redesign ui
