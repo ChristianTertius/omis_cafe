@@ -16,7 +16,7 @@ export default function Welcome({ galleries }: Props) {
             <HeroSection />
             <AboutSection />
             <GallerySection galleries={galleries} />
-            <FindUsSection />
+            {/* <FindUsSection /> */}
             <ContactUsSection />
         </AppLayout>
     );

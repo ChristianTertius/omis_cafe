@@ -1,7 +1,17 @@
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, useScroll, useTransform } from "framer-motion";
 import { Link } from "@inertiajs/react";
+import { useRef } from "react";
 
 export default function AboutSection() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
+
+    const y = useTransform(scrollYProgress, [0, 1], ["100%", "0%"]);
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -29,8 +39,10 @@ export default function AboutSection() {
     };
 
     return (
-        <div
-            className="min-h-screen relative text-white flex items-center"
+        <motion.div
+            ref={containerRef}
+            style={{ y }}
+            className="min-h-screen relative text-white flex items-center z-10 -mt-[100vh]"
             id="about"
         >
             <motion.div
@@ -53,18 +65,16 @@ export default function AboutSection() {
                     >
                         Lorem, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae delectus officiis quas obcaecati facere blanditiis illum pariatur? Perspiciatis, hic voluptates.ipsum dolor sit amet consectetur adipisicing elit. Mollitia at eos sit minus quod libero fuga commodi ad tenetur repudiandae?
                     </motion.p>
-                    <Link
-                        href={'/drinks'}
-                        className="bg-[#4d6443] py-2 px-4 text-white"
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        Buy Now
-                    </Link>
+                    <motion.div variants={itemVariants}>
+                        <Link
+                            href="/drinks"
+                            className="bg-[#4d6443] py-2 px-4 text-white inline-block"
+                        >
+                            Buy Now
+                        </Link>
+                    </motion.div>
                 </div>
             </motion.div>
-
             <motion.div
                 className="bg-pink-500 w-1/2 flex items-center justify-center h-screen bg-[url('/about_coffee.png')] bg-cover p-32"
                 initial="hidden"
@@ -95,6 +105,6 @@ export default function AboutSection() {
                     </motion.div>
                 </div>
             </motion.div>
-        </div>
+        </motion.div>
     );
 }
