@@ -50,7 +50,7 @@ export default function FindUsSection() {
     };
 
     return (
-        <section className="bg-[#3d5a4f] text-white py-16 px-4 md:px-8 relative">
+        <section className="bg-[#3d5a4f] text-white py-16 px-4 md:px-8 relative min-h-screen">
             {/* Toast Alert */}
             {showAlert && (
                 <div className="fixed top-8 right-8 z-50 animate-[slideIn_0.3s_ease-out]">
@@ -176,12 +176,11 @@ export default function FindUsSection() {
                         </div>
                     </div>
 
-                    {/* Right Column - Map */}
                     <div className="h-[400px] lg:h-full lg:min-h-[600px] bg-[#2a4038] rounded-xl shadow-2xl overflow-hidden">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666!2d106.8456!3d-6.2088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzEuNyJTIDEwNsKwNTAnNDQuMiJF!5e0!3m2!1sen!2sid!4v1234567890"
                             className="w-full h-full border-0"
-                            allowFullScreen=""
+                            allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             title="Omis Cafe Location"

@@ -57,7 +57,8 @@
 [✅] Learn Animation in find us
 [✅] Learn how to create texture
 [✅] implement texture in gallery
-[] change gallery/contactfindus -> gallery cokelat, find us ijo, kase separator, selesai
+[✅] change gallery/contactfindus -> gallery cokelat, find us ijo, selesai
+[] create footer
 [] makesure id works for move section
 
 [] redesign ui
