@@ -54,8 +54,16 @@ export default function GallerySection({ galleries }) {
     });
 
     const isInView = useInView(gallerySectionRef, {
-        amount: 0.1
-    })
+        once: true,
+        amount: 0.1,
+        margin: "0px 0px -100px 0px"
+    });
+
+    const titleOpacity = useTransform(
+        galleryProgress,
+        [0, 0.15, 0.2, 0.25],
+        [1, 1, 1, 0]
+    );
 
     const positions = generatePositions(galleries.length);
 
@@ -67,9 +75,12 @@ export default function GallerySection({ galleries }) {
         >
             <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
                 <motion.h1
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                    transition={{ duration: 1, ease: "easeInOut", delay: 0.2 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    style={{
+                        opacity: isInView ? titleOpacity : 0
+                    }}
                     className="text-3xl uppercase font-extrabold absolute text-white z-10"
                 >
                     Gallery

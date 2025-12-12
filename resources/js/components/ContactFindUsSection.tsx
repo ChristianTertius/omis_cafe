@@ -2,21 +2,37 @@ import { Link } from "@inertiajs/react";
 import { motion, Variants } from "framer-motion";
 import { Instagram, Mail, MapPin, PhoneCall } from "lucide-react";
 
-export default function ContactUsSection() {
+export default function ContactFindUsSection() {
     return (
         <div
             className="min-h-screen relative text-white flex items-center"
             id="about"
         >
-            <h1 className="text-5xl absolute left-1/2 -translate-x-1/2 top-20 font-extrabold">Find Us</h1>
+            <motion.h1
+                initial={{ opacity: 0, y: -30 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="text-5xl absolute left-1/2 -translate-x-1/2 top-20 font-extrabold">Find Us</motion.h1>
 
             <div
                 className="flex items-center flex-col space-y-3 justify-center w-1/2 h-screen bg-[#8b6341] bg-cover p-3"
             >
 
-                <h1 className="text-center text-2xl mb-10">Social Media</h1>
+                <motion.h1
+                    initial={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center text-2xl mb-10">Social Media</motion.h1>
+
                 <div className="flex gap-3 items-center">
-                    <div className="space-y-5 text-lg w-1/2">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50, scale: 0.8, }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                        className="space-y-5 text-lg w-1/2">
                         <div className="flex items-center gap-6">
                             <MapPin className="size-8" />
                             <div className="space-y-1">
@@ -47,16 +63,23 @@ export default function ContactUsSection() {
                                 <p>@omis_cafe</p>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666!2d106.8456!3d-6.2088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzEuNyJTIDEwNsKwNTAnNDQuMiJF!5e0!3m2!1sen!2sid!4v1234567890"
-                        height="450"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        className="w-full"
-                    />
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                    >
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666!2d106.8456!3d-6.2088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzEuNyJTIDEwNsKwNTAnNDQuMiJF!5e0!3m2!1sen!2sid!4v1234567890"
+                            height="450"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            className="w-full"
+                        />
+                    </motion.div>
                 </div>
 
             </div>
