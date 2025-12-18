@@ -47,14 +47,33 @@ export default function Navbar({ canRegister = true }: { canRegister?: boolean }
     const scrollToAbout = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         const aboutElement = document.getElementById('about');
+
         if (aboutElement) {
+            // Jika elemen about ada di halaman saat ini, scroll ke sana
             const elementPosition = aboutElement.getBoundingClientRect().top + window.pageYOffset;
-            // Offset untuk kompensasi navbar dan transform
-            const offsetPosition = elementPosition - 665; // Sesuaikan nilai ini
+            const offsetPosition = elementPosition - 665;
 
             window.scrollTo({
                 top: offsetPosition,
                 behavior: 'smooth'
+            });
+        } else {
+            // Jika elemen about tidak ada, redirect ke halaman welcome
+            router.visit(welcome(), {
+                onSuccess: () => {
+                    // Setelah halaman welcome ter-load, scroll ke about
+                    setTimeout(() => {
+                        const aboutElement = document.getElementById('about');
+                        if (aboutElement) {
+                            const elementPosition = aboutElement.getBoundingClientRect().top + window.pageYOffset;
+                            const offsetPosition = elementPosition - 665;
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 100);
+                }
             });
         }
     };

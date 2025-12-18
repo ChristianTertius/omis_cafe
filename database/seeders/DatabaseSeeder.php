@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Drink;
 use App\Models\Gallery;
+use App\Models\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -411,5 +412,9 @@ class DatabaseSeeder extends Seeder
                 'date' => '2022-12-08',
             ]
         );
+
+        Role::firstOrCreate(['name' => 'owner']);
+        Role::firstOrCreate(['name' => 'admin']);
+        Role::firstOrCreate(['name' => 'customer']);
     }
 }

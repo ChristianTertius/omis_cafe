@@ -62,18 +62,23 @@
 [✅] entah mengapa implement animasi di contactfindus section
 [✅] makesure id works for move section, fix about section
 [✅] Loading animation
+[✅] fix about dari drinks
+
+[✅] orders
+[✅] order details
+[✅] stock
 
 [] redesign ui
     [✅] home page
     [✅] gallery
-    [] fix about section
-    [] about
-    [] drinks (?)
-    [] contact
-    []✅ find
+    [✅] fix about section
+    [✅] about
+    [✅] drinks (?)
+    [✅] contact
+    [✅] find
     [] login ui
     [] register ui
-    [] dashboard ui
+    [✅] dashboard ui
 
 [] at to cart logic create
     [] notif live berapa barang
@@ -91,7 +96,8 @@
     [] if checkout -> orders + 1;
     [] crud biasalah
 
-[] favourite feature
+[] payment table
+
 [] buat jadi responsive
 [] darkmode
 
