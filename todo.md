@@ -67,6 +67,7 @@
 [✅] orders
 [✅] order details
 [✅] stock
+[] CRUD category
 
 [] redesign ui
     [✅] home page

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DrinkController;
 use App\Http\Controllers\GalleryController;
 use App\Models\Gallery;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/drinks/{drink}', [DrinkController::class, 'update']);
 
     Route::resource('drinks', DrinkController::class)->only('create', 'store', 'update', 'destroy');
+    Route::resource('categories', CategoryController::class);
 });
 
 Route::resource('drinks', DrinkController::class)->only('index');

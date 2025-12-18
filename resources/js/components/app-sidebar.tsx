@@ -13,9 +13,9 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, GlassWater, Image, LayoutGrid } from 'lucide-react';
+import { BookOpen, Folder, GlassWater, Image, LayoutGrid, Square } from 'lucide-react';
 import AppLogo from './app-logo';
-import { create_drinks, create_galleries, drinks } from '@/semuaroutes';
+import { create_categories, create_drinks, create_galleries, drinks } from '@/semuaroutes';
 
 const mainNavItems: NavItem[] = [
     {
@@ -32,6 +32,11 @@ const mainNavItems: NavItem[] = [
         title: 'Galleries',
         href: create_galleries(),
         icon: Image,
+    },
+    {
+        title: 'Category',
+        href: create_categories(),
+        icon: Square,
     },
 ];
 

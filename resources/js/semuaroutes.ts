@@ -25,3 +25,7 @@ export function gallery() {
 export function create_galleries() {
     return '/galleries/create'
 }
+
+export function create_categories() {
+    return '/categories/create'
+}
