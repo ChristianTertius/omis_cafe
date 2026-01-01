@@ -51,6 +51,10 @@
     [✅] gallery: pecah dari tengah ke kiri kanan
 [✅] combine contactus and findus section
 
+[] dropdown menu
+[] bulkupdate/delete
+[] dropdown menu
+
 <!--TODO: MUST DONE TODAY -->
 [✅] about section fix (consume 2 session if not solve, give up)
 [✅] Gallery fix, text gallery animasi fade in
