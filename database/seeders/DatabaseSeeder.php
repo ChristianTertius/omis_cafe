@@ -413,7 +413,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-
         Role::firstOrCreate(['name' => 'owner']);
         Role::firstOrCreate(['name' => 'admin']);
         Role::firstOrCreate(['name' => 'customer']);
